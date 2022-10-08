@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">KotlinBaseProject</string>
+
+    <string name="Meals">Meals</string>
+    <string name="AddUser">Add User</string>
+    <string name="Users">Users</string>
+    <string name="CreateNewUser">Create New User</string>
+
+</resources>

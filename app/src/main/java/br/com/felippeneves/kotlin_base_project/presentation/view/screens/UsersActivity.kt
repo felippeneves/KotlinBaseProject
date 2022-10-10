@@ -3,6 +3,7 @@ package br.com.felippeneves.kotlin_base_project.presentation.view.screens
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import br.com.felippeneves.kotlin_base_project.databinding.ActivityUsersBinding
 import br.com.felippeneves.kotlin_base_project.domain.model.UserEnt
 import br.com.felippeneves.kotlin_base_project.presentation.view.adapters.UsersAdapter
@@ -11,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UsersActivity : AppCompatActivity() {
 
-    private val viewModel:UsersViewModel by viewModel()
+    private val viewModel: UsersViewModel by viewModel()
 
     private lateinit var binding: ActivityUsersBinding
 
@@ -24,7 +25,7 @@ class UsersActivity : AppCompatActivity() {
     }
 
     private fun loadingScreen() {
-        viewModel.users.observe( this@UsersActivity) { listUser ->
+        viewModel.users.observe(this@UsersActivity) { listUser ->
             populateUsers(listUser)
         }
 

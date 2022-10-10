@@ -13,7 +13,7 @@ class UsersViewModel(
 ) : ViewModel() {
 
     private val _users = MutableLiveData<List<UserEnt>>()
-    val users = _users as LiveData<List<UserEnt>>
+    val users: LiveData<List<UserEnt>> = _users
 
     fun getUsers() {
         viewModelScope.launch {

@@ -24,7 +24,7 @@ class UsersAdapter(
 
         with(holder) {
             binding.tvId.text = category.id.toString()
-            binding.tvName.text = "${category.firstName}  ${category.lastName}}"
+            binding.tvName.text = "${category.firstName}  ${category.lastName}"
         }
     }
 

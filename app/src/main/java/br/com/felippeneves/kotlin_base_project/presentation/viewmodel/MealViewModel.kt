@@ -13,7 +13,7 @@ class MealViewModel(
 ) : ViewModel() {
 
     private val _categories = MutableLiveData<List<CategoryEnt>>()
-    val categories = _categories as LiveData<List<CategoryEnt>>
+    val categories: LiveData<List<CategoryEnt>> = _categories
 
     fun getCategories() {
         viewModelScope.launch {

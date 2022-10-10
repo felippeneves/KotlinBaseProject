@@ -27,6 +27,6 @@
         app:tint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:contentDescription="@string/AddUser" />
+        android:contentDescription="@string/SaveOrUpdateUser" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

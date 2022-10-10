@@ -5,5 +5,7 @@
     <string name="AddUser">Add User</string>
     <string name="Users">Users</string>
     <string name="CreateNewUser">Create New User</string>
+    <string name="FirstName">First Name</string>
+    <string name="LastName">Last Name</string>
 
 </resources>

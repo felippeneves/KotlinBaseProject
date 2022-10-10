@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="hint_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/darkBlue</item>
+    </style>
+
+    <style name="hint_error_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/Red</item>
+    </style>
+
+    <style name="edit_text_default">
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/DarkGray</item>
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+</resources>

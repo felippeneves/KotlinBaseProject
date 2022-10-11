@@ -23,4 +23,8 @@ class UserUseCaseImpl(
     override suspend fun deleteUser(user: UserDbo) {
         repository.deleteUser(user)
     }
+
+    override suspend fun updateUser(user: UserDbo) {
+        repository.updateUser(user)
+    }
 }

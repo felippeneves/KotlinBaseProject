@@ -4,8 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import br.com.felippeneves.kotlin_base_project.R
 import br.com.felippeneves.kotlin_base_project.databinding.ActivityUserRegisterBinding
+import br.com.felippeneves.kotlin_base_project.domain.model.UserEnt
 import br.com.felippeneves.kotlin_base_project.presentation.viewmodel.UserRegisterViewModel
 import br.com.felippeneves.kotlin_base_project.util.BaseActivity
+import br.com.felippeneves.kotlin_base_project.util.ContentTransfer
 import br.com.felippeneves.kotlin_base_project.util.ValidationResultListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,11 +28,11 @@ class UserRegisterActivity : BaseActivity() {
         //
         listFocus = listOf(binding.etFirstName, binding.etLastName, binding.etAge)
         //
+        observers()
         loadingScreen()
     }
 
-    private fun loadingScreen() {
-
+    private fun observers() {
         viewModel.inputFirstName.observe(this@UserRegisterActivity) {
             disableErrorTextInput(binding.tilFirstName)
         }
@@ -42,13 +44,21 @@ class UserRegisterActivity : BaseActivity() {
                     selectNextFocus(binding.etFirstName)
                 }
                 ValidationResultListener.EMPTY -> {
-                    setFailureEditText(binding.etFirstName, binding.tilFirstName, context.getString(R.string.MsgInformFirstName))
+                    setFailureEditText(
+                        binding.etFirstName,
+                        binding.tilFirstName,
+                        context.getString(R.string.MsgInformFirstName)
+                    )
                 }
                 ValidationResultListener.FAILURE -> {
                     setFailureEditText(binding.etFirstName, binding.tilFirstName, it.erroMessage)
                 }
                 else -> {
-                    setFailureEditText(binding.etFirstName, binding.tilFirstName, context.getString(R.string.MsgUnexpectedError))
+                    setFailureEditText(
+                        binding.etFirstName,
+                        binding.tilFirstName,
+                        context.getString(R.string.MsgUnexpectedError)
+                    )
                 }
             }
         }
@@ -64,13 +74,21 @@ class UserRegisterActivity : BaseActivity() {
                     selectNextFocus(binding.etLastName)
                 }
                 ValidationResultListener.EMPTY -> {
-                    setFailureEditText(binding.etLastName, binding.tilLastName, context.getString(R.string.MsgInformLastName))
+                    setFailureEditText(
+                        binding.etLastName,
+                        binding.tilLastName,
+                        context.getString(R.string.MsgInformLastName)
+                    )
                 }
                 ValidationResultListener.FAILURE -> {
                     setFailureEditText(binding.etLastName, binding.tilLastName, it.erroMessage)
                 }
                 else -> {
-                    setFailureEditText(binding.etLastName, binding.tilLastName, context.getString(R.string.MsgUnexpectedError))
+                    setFailureEditText(
+                        binding.etLastName,
+                        binding.tilLastName,
+                        context.getString(R.string.MsgUnexpectedError)
+                    )
                 }
             }
         }
@@ -86,13 +104,21 @@ class UserRegisterActivity : BaseActivity() {
                     selectNextFocus(binding.etAge)
                 }
                 ValidationResultListener.EMPTY -> {
-                    setFailureEditText(binding.etAge, binding.tilAge, context.getString(R.string.MsgInformAge))
+                    setFailureEditText(
+                        binding.etAge,
+                        binding.tilAge,
+                        context.getString(R.string.MsgInformAge)
+                    )
                 }
                 ValidationResultListener.FAILURE -> {
                     setFailureEditText(binding.etAge, binding.tilAge, it.erroMessage)
                 }
                 else -> {
-                    setFailureEditText(binding.etAge, binding.tilAge, context.getString(R.string.MsgUnexpectedError))
+                    setFailureEditText(
+                        binding.etAge,
+                        binding.tilAge,
+                        context.getString(R.string.MsgUnexpectedError)
+                    )
                 }
             }
         }
@@ -108,6 +134,18 @@ class UserRegisterActivity : BaseActivity() {
                     setFailureEditText(binding.etAge, binding.tilAge, it.erroMessage)
                 }
             }
+        }
+    }
+
+    private fun loadingScreen() {
+        val user: UserEnt? =
+            getSerializable(intent, ContentTransfer.EXTRA_USER, UserEnt::class.java)
+
+        if (user != null) {
+            viewModel.id.value = user.id
+            viewModel.inputFirstName.value = user.firstName
+            viewModel.inputLastName.value = user.lastName
+            viewModel.inputAge.value = user.age?.toString()
         }
     }
 }

@@ -11,4 +11,6 @@ interface UserUseCase {
     suspend fun addUser(user: UserDbo)
 
     suspend fun deleteUser(user: UserDbo)
+
+    suspend fun updateUser(user: UserDbo)
 }

@@ -28,17 +28,37 @@ class UserRegisterViewModel(
     private val _validationAddUser = MutableLiveData<ValidationResultListener>()
     var validationAddUser: LiveData<ValidationResultListener> = _validationAddUser
 
-    val id: Int? = null
+    val id = MutableLiveData<Int?>(null)
 
     fun saveOrUpdate() {
         viewModelScope.launch {
             try {
-                if(validate()) {
-                    userUseCase.addUser(UserDbo(first_name = inputFirstName.value!!, last_name = inputLastName.value!!, age = inputAge.value!!.toInt()))
+                if (validate()) {
+
+                    if (id.value != null) {
+                        userUseCase.updateUser(
+                            UserDbo(
+                                id.value!!,
+                                inputFirstName.value!!,
+                                inputLastName.value!!,
+                                inputAge.value!!.toInt()
+                            )
+                        )
+                    } else {
+                        userUseCase.addUser(
+                            UserDbo(
+                                first_name = inputFirstName.value!!,
+                                last_name = inputLastName.value!!,
+                                age = inputAge.value!!.toInt()
+                            )
+                        )
+                    }
+
                     _validationAddUser.value = ValidationResultListener()
                 }
             } catch (e: Exception) {
-                _validationAddUser.value = ValidationResultListener(ValidationResultListener.FAILURE, e.message)
+                _validationAddUser.value =
+                    ValidationResultListener(ValidationResultListener.FAILURE, e.message)
             }
         }
     }

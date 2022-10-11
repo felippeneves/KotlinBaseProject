@@ -25,4 +25,8 @@ class UserRepositoryImpl(
     override suspend fun deleteUser(user: UserDbo) {
         dao.delete(user)
     }
+
+    override suspend fun updateUser(user: UserDbo) {
+        dao.update(user)
+    }
 }

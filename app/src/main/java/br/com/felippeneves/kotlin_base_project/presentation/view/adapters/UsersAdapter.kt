@@ -9,7 +9,8 @@ import br.com.felippeneves.kotlin_base_project.domain.model.UserEnt
 
 class UsersAdapter(
     private val users: MutableList<UserEnt>,
-    private val clickListener: (UserEnt) -> Unit
+    private val deleteListener: (UserEnt) -> Unit,
+    private val updateListener: (UserEnt) -> Unit,
 ) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -27,9 +28,13 @@ class UsersAdapter(
         with(holder) {
             binding.tvName.text = "Name: ${user.firstName} ${user.lastName}"
             binding.tvAge.text = "Age: ${user.age.toString()} years old"
-            binding.vSeparator.visibility = if (position == users.lastIndex) View.GONE else View.VISIBLE
+            binding.vSeparator.visibility =
+                if (position == users.lastIndex) View.GONE else View.VISIBLE
             binding.ibDelete.setOnClickListener {
-                clickListener(user)
+                deleteListener(user)
+            }
+            binding.ibEdit.setOnClickListener {
+                updateListener(user)
             }
         }
     }

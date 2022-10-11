@@ -5,11 +5,15 @@ import androidx.lifecycle.ViewModel
 
 open class BaseViewModel : ViewModel() {
 
-    protected fun validate(validation: MutableLiveData<ValidationResultListener>, value: String, nextFocus: Boolean = false): Boolean {
+    protected fun validate(
+        validation: MutableLiveData<ValidationResultListener>,
+        value: String,
+        nextFocus: Boolean = false
+    ): Boolean {
         return try {
 
-            if(value.isNotBlank()) {
-                if(nextFocus)
+            if (value.isNotBlank()) {
+                if (nextFocus)
                     validation.value = ValidationResultListener()
                 true
             } else {

@@ -9,6 +9,7 @@ import br.com.felippeneves.kotlin_base_project.databinding.ActivityUsersBinding
 import br.com.felippeneves.kotlin_base_project.domain.model.UserEnt
 import br.com.felippeneves.kotlin_base_project.presentation.view.adapters.UsersAdapter
 import br.com.felippeneves.kotlin_base_project.presentation.viewmodel.UsersViewModel
+import br.com.felippeneves.kotlin_base_project.util.ContentTransfer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UsersActivity : AppCompatActivity() {
@@ -45,24 +46,36 @@ class UsersActivity : AppCompatActivity() {
 
     private val getResult =
         registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()) {
-            if(it.resultCode == Activity.RESULT_OK){
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
                 viewModel.getUsers()
             }
         }
 
-    fun callAddUser() {
+    fun openAddUserScreen() {
+        openAddOrUpdateUserScreen()
+    }
+
+    private fun openAddOrUpdateUserScreen(user: UserEnt? = null) {
         val intent = Intent(this@UsersActivity, UserRegisterActivity::class.java)
+        intent.putExtra(ContentTransfer.EXTRA_USER, user)
         getResult.launch(intent)
     }
 
     private fun populateUsers(users: List<UserEnt>) {
-        binding.rvUsers.adapter = UsersAdapter(users as MutableList<UserEnt>) {
+        binding.rvUsers.adapter = UsersAdapter(users as MutableList<UserEnt>, {
             deleteUser(it)
-        }
+        }, {
+            updateUser(it)
+        })
     }
 
     private fun deleteUser(user: UserEnt) {
         viewModel.deleteUser(user)
+    }
+
+    private fun updateUser(user: UserEnt) {
+        openAddOrUpdateUserScreen(user)
     }
 }

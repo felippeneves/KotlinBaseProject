@@ -11,7 +11,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MealActivity : AppCompatActivity() {
 
-    private val viewModel:MealViewModel by viewModel()
+    private val viewModel: MealViewModel by viewModel()
 
     private lateinit var binding: ActivityMealBinding
 
@@ -25,7 +25,7 @@ class MealActivity : AppCompatActivity() {
 
     private fun loadingScreen() {
 
-        viewModel.categories.observe( this@MealActivity) { listCategory ->
+        viewModel.categories.observe(this@MealActivity) { listCategory ->
             populateMealsCategory(listCategory)
         }
 

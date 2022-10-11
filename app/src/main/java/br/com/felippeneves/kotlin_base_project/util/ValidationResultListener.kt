@@ -6,7 +6,7 @@ class ValidationResultListener(
     @StatusResult
     var result: Int = SUCESS,
     var erroMessage: String? = null
-){
+) {
 
     companion object {
 
@@ -17,6 +17,4 @@ class ValidationResultListener(
         const val FAILURE = 2
         const val EMPTY = 3
     }
-
-    fun success() = result == SUCESS
 }

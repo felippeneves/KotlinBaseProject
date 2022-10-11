@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="br.com.felippeneves.kotlin_base_project.presentation.viewmodel.UserRegisterViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -14,5 +14,6 @@
     <string name="MsgUnexpectedErrorSavingUser">Unexpected error saving user</string>
     <string name="MsgUserAddedSuccessfully">User added successfully</string>
     <string name="MsgUnexpectedError">Unexpected error</string>
+    <string name="DeleteUser">Delete user</string>
 
 </resources>

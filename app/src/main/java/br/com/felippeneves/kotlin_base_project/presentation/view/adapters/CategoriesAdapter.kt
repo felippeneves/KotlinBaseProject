@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.felippeneves.kotlin_base_project.databinding.ItemCategoryBinding
 import br.com.felippeneves.kotlin_base_project.domain.model.CategoryEnt
-import br.com.felippeneves.kotlin_base_project.presentation.model.CategoryUiModel
 import com.squareup.picasso.Picasso
 
 class CategoriesAdapter(

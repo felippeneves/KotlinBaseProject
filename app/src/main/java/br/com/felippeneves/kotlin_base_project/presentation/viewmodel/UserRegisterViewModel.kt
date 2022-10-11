@@ -1,16 +1,13 @@
 package br.com.felippeneves.kotlin_base_project.presentation.viewmodel
 
-import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import br.com.felippeneves.kotlin_base_project.R
 import br.com.felippeneves.kotlin_base_project.data.model.entities.UserDbo
 import br.com.felippeneves.kotlin_base_project.domain.use_case.user.UserUseCase
 import br.com.felippeneves.kotlin_base_project.util.BaseViewModel
 import br.com.felippeneves.kotlin_base_project.util.ValidationResultListener
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class UserRegisterViewModel(
     private val userUseCase: UserUseCase,
@@ -37,7 +34,7 @@ class UserRegisterViewModel(
         viewModelScope.launch {
             try {
                 if(validate()) {
-                    userUseCase.addUser(UserDbo(inputFirstName.value!!, inputLastName.value!!, inputAge.value!!.toInt()))
+                    userUseCase.addUser(UserDbo(first_name = inputFirstName.value!!, last_name = inputLastName.value!!, age = inputAge.value!!.toInt()))
                     _validationAddUser.value = ValidationResultListener()
                 }
             } catch (e: Exception) {
@@ -50,36 +47,43 @@ class UserRegisterViewModel(
         return validateFirstName() && validateLastName() && validateAge()
     }
 
-    private fun validateFirstName(nextFocus: Boolean = false): Boolean {
-        return validate(_validationFirstName, inputFirstName.value!!, nextFocus)
-    }
+    fun validateFirstName(nextFocus: Boolean = false): Boolean {
+        var validate = false
 
-    private fun validateLastName(nextFocus: Boolean = false): Boolean {
-        return validate(_validationLastName, inputLastName.value!!, nextFocus)
-    }
-
-    private fun validateAge(nextFocus: Boolean = false): Boolean {
-        return validate(_validationAge, inputAge.value!!, nextFocus)
-    }
-
-    fun onDoneClicked(view: View, actionId: Int): Boolean {
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-
-            when (view.id) {
-                R.id.etFirstName -> {
-                    validateFirstName(true)
-                }
-                R.id.etLastName -> {
-                    validateLastName(true)
-                }
-                R.id.etAge -> {
-                    validateAge(true)
-                }
+        runBlocking {
+            val validateDispatcher = async {
+                validate(_validationFirstName, inputFirstName.value!!, nextFocus)
             }
-
-            return true
+            validate = validateDispatcher.await()
         }
 
-        return false
+        return validate
+    }
+
+    fun validateLastName(nextFocus: Boolean = false): Boolean {
+        var validate = false
+
+        runBlocking {
+            val validateDispatcher = async {
+                validate(_validationLastName, inputLastName.value!!, nextFocus)
+            }
+            validate = validateDispatcher.await()
+        }
+
+        return validate
+    }
+
+    fun validateAge(nextFocus: Boolean = false): Boolean {
+
+        var validate = false
+
+        runBlocking {
+            val validateDispatcher = async {
+                validate(_validationAge, inputAge.value!!, nextFocus)
+            }
+            validate = validateDispatcher.await()
+        }
+
+        return validate
     }
 }

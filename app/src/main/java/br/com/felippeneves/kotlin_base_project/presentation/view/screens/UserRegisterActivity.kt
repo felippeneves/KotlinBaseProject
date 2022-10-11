@@ -101,6 +101,7 @@ class UserRegisterActivity : BaseActivity() {
 
             when (it.result) {
                 ValidationResultListener.SUCESS -> {
+                    setResult(RESULT_OK)
                     finish()
                 }
                 ValidationResultListener.FAILURE -> {

@@ -1,13 +1,15 @@
 package br.com.felippeneves.kotlin_base_project.presentation.view.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.felippeneves.kotlin_base_project.databinding.ItemUserBinding
 import br.com.felippeneves.kotlin_base_project.domain.model.UserEnt
 
 class UsersAdapter(
-    private val users: List<UserEnt>
+    private val users: MutableList<UserEnt>,
+    private val clickListener: (UserEnt) -> Unit
 ) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -20,11 +22,15 @@ class UsersAdapter(
     }
 
     override fun onBindViewHolder(holder: UsersAdapter.UsersViewHolder, position: Int) {
-        val category = users[position]
+        val user = users[position]
 
         with(holder) {
-            binding.tvId.text = category.id.toString()
-            binding.tvName.text = "${category.firstName}  ${category.lastName}"
+            binding.tvName.text = "Name: ${user.firstName} ${user.lastName}"
+            binding.tvAge.text = "Age: ${user.age.toString()} years old"
+            binding.vSeparator.visibility = if (position == users.lastIndex) View.GONE else View.VISIBLE
+            binding.ibDelete.setOnClickListener {
+                clickListener(user)
+            }
         }
     }
 
@@ -32,4 +38,10 @@ class UsersAdapter(
 
     inner class UsersViewHolder(val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    fun deleteItem(user: UserEnt) {
+        val indexOf = users.indexOf(user)
+        users.remove(user)
+        notifyItemRemoved(indexOf)
+    }
 }
